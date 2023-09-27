@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const url_Arr=['https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=7b68bf0910a2a7530b9929d01904bc79',
+'https://api.openweathermap.org/data/2.5/weather?q=Houston&APPID=7b68bf0910a2a7530b9929d01904bc79',
+'https://api.openweathermap.org/data/2.5/weather?q=Lisbon&APPID=7b68bf0910a2a7530b9929d01904bc79',
+'https://api.openweathermap.org/data/2.5/weather?q=Baltimore&APPID=7b68bf0910a2a7530b9929d01904bc79',]
+
+var dataArr=[]
+
+const makeRequest= async function(url){
+    let response=await fetch(url)
+    let data=await response.text();
+    //console.log(data)
+    return data
+}
+
+url_Arr.forEach((item,k)=>{
+    makeRequest(item).then(
+        function(result){
+            dataArr.push(JSON.parse(result))
+            if(dataArr.length==4)
+           {
+            for (let i=0;i<4;i++){
+               if(dataArr[i].name=="Lisbon"){
+                create(dataArr[i])
+               // console.log("Hello")
+               }
+            }
+           }
+            
+        }
+    )
+})
+
+
+function create(data){
+    let lis=document.createElement("div")
+    lis.innerHTML=JSON.stringify(data)
+    document.body.appendChild(lis)
+}
+    </script>
+</body>
+</html>
